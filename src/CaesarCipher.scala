@@ -11,8 +11,22 @@ class CaesarCipher(shift:Int) {
         val index: Int = (alphabet(c.toLower) + shift) % 26
         msg += alphabet.find(_._2 == index).map(_._1).get.toUpper
       }
-
     }
+    msg
+  }
+  def decryptText(cryptText: String): String = {
+    var msg: String = ""
+    for (c <- cryptText) {
+      if (alphabet.contains(c)) { //at lowercase char
+        val index: Int = (alphabet(c) - shift) % 26 // modulo to ensure we only have index between 0 and 25
+        msg += alphabet.find(_._2 == index).map(_._1).get
+      }
+      else { //assuming valid char given then uppercase case needs to be handled
+        val index: Int = (alphabet(c.toLower) - shift) % 26
+        msg += alphabet.find(_._2 == index).map(_._1).get.toUpper
+      }
+    }
+    msg
   }
 
 }
